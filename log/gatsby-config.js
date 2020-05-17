@@ -6,9 +6,9 @@ module.exports = {
       summary: `超急戦は将棋の戦法です。`,
     },
     description: `個人まとめ`,
-    siteUrl: ``,
+    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `masaroweb`,
     },
   },
   plugins: [
