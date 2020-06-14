@@ -6,16 +6,25 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 
+
+
+//graphQLのでーた
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
+
+  const post = data.contentfulCmstest.body.childMarkdownRemark
+
+  // metaデータ
   const siteTitle = data.site.siteMetadata.title
+
   const { previous, next } = pageContext
 
+  //ここでトップページの目次の処理をする。
+  //記事が増えるとトップページでも自動的に記事が追加される仕組み
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        description={post.frontmatter.description}
       />
       <article>
         <header>
@@ -58,20 +67,20 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             padding: 0,
           }}
         >
-          <li>
+          {/* <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <Link to={previous.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <Link to={next.slug} rel="next">
                 {next.frontmatter.title} →
               </Link>
             )}
-          </li>
+          </li> */}
         </ul>
       </nav>
     </Layout>
@@ -80,6 +89,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
 export default BlogPostTemplate
 
+//自動的に増やすためにはGraphQLから記事を確認出来るように定義する？
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     site {
@@ -87,14 +97,16 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
+    contentfulCmstest(slug: { eq: $slug}) {
+      body {
+        childMarkdownRemark {
+          html
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            description
+            title
+          }
+        }
       }
     }
   }

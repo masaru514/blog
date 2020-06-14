@@ -1,24 +1,29 @@
 const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
+  // blogpostという変数にテンプレートファイル格納
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+
+  // 非同期grasphQL呼び出し
   const result = await graphql(
     `
-      {
-        allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
-          limit: 1000
-        ) {
+      query {
+        allContentfulCmstest {
           edges {
             node {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
+              id
+              slug
+              body {
+                childMarkdownRemark {
+                  html
+                  frontmatter {
+                    date
+                    description
+                    title
+                  }
+                }
               }
             }
           }
@@ -27,22 +32,25 @@ exports.createPages = async ({ graphql, actions }) => {
     `
   )
 
+
   if (result.errors) {
     throw result.errors
   }
 
-  // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges
+  // Create blog posts pages.　graphQLを使う
+  const posts = result.data.allContentfulCmstest.edges
 
+  //配列を処理 edges以降、配列ということ　一つ一つ呼び出す
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
 
+    //createPage APIを使って個別のページを作成する　component=blog-post.jsで処理をさせる 表面だけ
     createPage({
-      path: post.node.fields.slug,
+      path: post.node.slug,
       component: blogPost,
       context: {
-        slug: post.node.fields.slug,
+        slug: post.node.slug,
         previous,
         next,
       },
@@ -50,15 +58,4 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
-}

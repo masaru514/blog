@@ -7,57 +7,78 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 
-type Data = {
-  site: {
-    siteMetadata: {
-      title: string
-    }
-  }
-  allMarkdownRemark: {
-    edges: {
-      node: {
-        excerpt: string
-        frontmatter: {
-          title: string
-          date: string
-          description: string
-        }
-        fields: {
-          slug: string
-        }
-      }
-    }[]
-  }
-}
+//graphql 型
+// type Data = {
+//   site: {
+//     siteMetadata: {
+//       title: string
+//     }
+//   }
+//   allMarkdownRemark: {
+//     edges: {
+//       node: {
+//         excerpt: string
+//         frontmatter: {
+//           title: string
+//           date: string
+//           description: string
+//         }
+//         fields: {
+//           slug: string
+//         }
+//       }
+//     }
+//   }
+//   allContentfulCmstest: {
+//     edges: {
+//       node: {
+//         title: string
+//         slug: string
+//         body: {
+//           childMarkdownRemark: {
+//             frontmatter: {
+//               title: string
+//               date: string
+//               description: string
+//             }
+//             html: string
+//           }
+//         }
+//       }
+//     }[]
+//   }
+// }
+
+
 
 const BlogIndex = ({ data, location }: PageProps<Data>) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+  const posts = data.allContentfulCmstest.edges
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.body.childMarkdownRemark.frontmatter.title || node.slug
         return (
-          <article key={node.fields.slug}>
+          <article key={node.slug}>
             <header>
               <h3
                 style={{
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                <Link style={{ boxShadow: `none` }} to={node.slug}>
                   {title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
+              <small>{node.body.childMarkdownRemark.frontmatter.date}</small>
             </header>
             <section>
               <p
                 dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
+                  __html: node.body.childMarkdownRemark.frontmatter.description,
                 }}
               />
             </section>
@@ -77,17 +98,20 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allContentfulCmstest(sort: {order: DESC, fields: body___childMarkdownRemark___frontmatter___date}) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
+          title
+          slug
+          body {
+            childMarkdownRemark {
+              frontmatter {
+                title
+                date
+                description
+              }
+              html
+            }
           }
         }
       }

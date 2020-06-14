@@ -1,3 +1,8 @@
+const env = process.env.NODE_ENV;
+require("dotenv").config({
+  path: `./.env.${env}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: `超急戦`,
@@ -12,13 +17,6 @@ module.exports = {
     },
   },
   plugins: [
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -76,6 +74,13 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.spaceId,
+        accessToken: process.env.accessToken,
+      }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
