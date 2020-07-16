@@ -8,12 +8,12 @@ module.exports = {
     title: `超急戦`,
     author: {
       name: `まさる`,
-      summary: `超急戦は将棋の戦法です。`,
+      summary: `超急戦は将棋の戦法です。このサイトでは技術的なことをひたすら書いていきます。`,
     },
     description: `個人まとめ`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
-      twitter: `masaroweb`,
+      twitter: `masaruweb`,
     },
   },
   plugins: [

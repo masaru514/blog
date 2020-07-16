@@ -1,0 +1,31 @@
+
+
+.list{
+  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.1);
+  padding: 30px;
+  margin: 0 0 60px 0 !important;
+  border-radius: 5px;
+  background-color: #fff;
+  display: block;
+  transition: 0.2s ease-in;
+  color: #333;
+  font-family: "meiryo","";
+}
+
+.list:hover{
+  transform: scale(1.005);
+  position: relative;
+  background: #f2f2f2;
+}
+
+.date{
+  color: #888;
+  margin-bottom: 10px;
+  font-size: 80%;
+}
+
+.indexDescription{
+  line-height: 1.2;
+  margin: 0;
+  text-align: justify;
+}
