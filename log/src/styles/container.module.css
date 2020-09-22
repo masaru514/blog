@@ -1,7 +1,5 @@
-
-
-.list{
-  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.1);
+.list {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
   padding: 30px;
   margin: 0 0 60px 0 !important;
   border-radius: 5px;
@@ -9,23 +7,45 @@
   display: block;
   transition: 0.2s ease-in;
   color: #333;
-  font-family: "meiryo","";
+  font-family: 'meiryo', '';
 }
 
-.list:hover{
+.list:hover {
   transform: scale(1.005);
   position: relative;
   background: #f2f2f2;
 }
 
-.date{
+.date {
   color: #888;
   margin-bottom: 10px;
   font-size: 80%;
 }
 
-.indexDescription{
+.indexDescription {
   line-height: 1.2;
   margin: 0;
   text-align: justify;
 }
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0 0 0;
+}
+
+.tag {
+  list-style: none;
+  margin: 10px 10px 0 0;
+  border: 1px solid #ccc;
+  color: #aaa;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  border-radius: 5px 0 0 5px;
+  position: relative;
+  border-left: 10px solid #ccc;
+}
+
+/* .tag:first-child {
+  margin-left: 0;
+} */

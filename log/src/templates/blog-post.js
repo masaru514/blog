@@ -1,16 +1,14 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from 'react'
+import { Link, graphql } from 'gatsby'
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
-import  "../styles/post.css"
-
+import Bio from '../components/bio'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import { rhythm, scale } from '../utils/typography'
+import '../styles/post.css'
 
 //graphQLのでーた
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-
   const post = data.contentfulCmstest.body.childMarkdownRemark
 
   // metaデータ
@@ -47,6 +45,19 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </p>
         </header>
         <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+        <ins
+          class="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-7791357005673757"
+          data-ad-slot="6999058042"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -56,7 +67,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <Bio />
         </footer>
       </article>
-
       <nav>
         <ul
           style={{
@@ -97,7 +107,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    contentfulCmstest(slug: { eq: $slug}) {
+    contentfulCmstest(slug: { eq: $slug }) {
       body {
         childMarkdownRemark {
           html
