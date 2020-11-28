@@ -1,8 +1,15 @@
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.profile {
+  padding: 20px;
+}
+
 .list {
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  margin: 0 0 60px 0 !important;
-  border-radius: 5px;
   background-color: #fff;
   display: block;
   transition: 0.2s ease-in;
@@ -24,6 +31,7 @@
 
 .indexDescription {
   line-height: 1.2;
+  font-size: 14px;
   margin: 0;
   text-align: justify;
 }

@@ -39,25 +39,27 @@ const Bio = () => {
   return (
     <div
       style={{
-        display: `flex`,
         marginBottom: rhythm(2.5),
+        textAlign: 'center',
       }}
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
         style={{
-          marginRight: rhythm(1 / 2),
-          marginBottom: 0,
+          margin: '0 auto 20px',
           minWidth: 50,
           borderRadius: `100%`,
+          display: 'block', 
+          textAlign: 'center',
         }}
         imgStyle={{
           borderRadius: `50%`,
         }}
       />
+      <h5 style={{margin: '5px 0 10px 0',}}><strong>{author.name}</strong></h5>
+      <p>{author.summary}</p>
       <p>
-        <strong>{author.name}</strong> {author.summary}
         <a href={`https://twitter.com/${social.twitter}`}>
           My Twitter Page
         </a>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
 
 import Bio from '../components/bio'
@@ -15,6 +15,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   const { previous, next } = pageContext
+
+  //google adsense
+  useEffect(() => {
+    if (window) {
+      window.adsbygoogle = window.adsbygoogle || []
+      window.adsbygoogle.push({})
+    }
+  })
 
   //ここでトップページの目次の処理をする。
   //記事が増えるとトップページでも自動的に記事が追加される仕組み
@@ -49,15 +57,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         ></script>
-        <ins
-          class="adsbygoogle"
+        <Ins
+          className="adsbygoogle"
           style={{ display: 'block' }}
           data-ad-client="ca-pub-7791357005673757"
           data-ad-slot="6999058042"
           data-ad-format="auto"
           data-full-width-responsive="true"
-        ></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        ></Ins>
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -96,6 +103,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     </Layout>
   )
 }
+
+const Ins = style.ins`display: block`
 
 export default BlogPostTemplate
 

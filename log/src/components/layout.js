@@ -51,7 +51,7 @@ const Layout = ({ location, title, children }) => {
       <div style={{        
         marginLeft: `auto`,
         marginRight: `auto`,
-        maxWidth: 700,
+        maxWidth: 1000,
         padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         background: '#fff',
         fontFamily: 'meiryo'

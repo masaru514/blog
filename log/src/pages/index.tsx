@@ -35,40 +35,46 @@ type Data = {
     }
   }
 }
+
+
 const BlogIndex = ({ data, location }: PageProps<Data>) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allContentfulCmstest.edges
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="投稿一覧" />
-      <Bio />
-      <div>
-        {posts.map(({ node }) => {
-          const title = node.title || node.slug
-          return (
-            <article key={node.id}>
-              <Link to={node.slug} className={style.list}>
-                <header>
-                  <h3 style={{ margin: 0, fontFamily: "meiryo", paddingBottom: 5 }}>
-                    {title}
-                  </h3>
-                  <p className={style.date}>{node.updatedAt}</p>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: node.childContentfulCmstestBodyTextNode.childMarkdownRemark.excerpt,
-                    }}
-                    className={style.indexDescription}
-                  />
-                  {
-                    node.tags ? (<ul className={style.tagsList}> {node.tags.map(tag => <li key={node.id} className={style.tag}>{tag}</li>)} </ul>) : (null)
-                  }
-                </section>
-              </Link>
-            </article>
-          )
-        })}
+      <div className={style.content}>
+        <div className={style.profile}>
+          <Bio />
+        </div>
+        <div className="template">
+          {posts.map(({ node }) => {
+            const title = node.title || node.slug
+            return (
+              <article key={node.id}>
+                <Link to={node.slug} className={style.list}>
+                  <header>
+                    <h3 style={{ margin: 0, fontFamily: "meiryo", paddingBottom: 5 }}>
+                      {title}
+                    </h3>
+                    <p className={style.date}>{node.updatedAt}</p>
+                  </header>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: node.childContentfulCmstestBodyTextNode.childMarkdownRemark.excerpt,
+                      }}
+                      className={style.indexDescription}
+                    />
+                    {
+                      node.tags ? (<ul className={style.tagsList}> {node.tags.map(tag => <li key={node.id} className={style.tag}>{tag}</li>)} </ul>) : (null)
+                    }
+                  </section>
+                </Link>
+              </article>
+            )
+          })}
+        </div>
       </div>
     </Layout>
   )
